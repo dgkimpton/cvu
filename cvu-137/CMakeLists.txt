@@ -12,4 +12,5 @@ add_compile_options(
 add_executable(cvu137
         tests.cpp
         test_card.cpp
+        card.cpp
 )
