@@ -13,4 +13,6 @@ add_executable(cvu137
         tests.cpp
         test_card.cpp
         card.cpp
+        test_card_helpers.cpp
+        card_helpers.cpp
 )

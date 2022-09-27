@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "card.h"
+#include "card_helpers.h"
 using namespace PlayingCards;
 
 TEST_CASE("it should be possible to parse english language descriptions of playing cards") {
