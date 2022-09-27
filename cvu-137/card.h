@@ -4,6 +4,12 @@
 
 namespace PlayingCards {
   enum class Suit { hearts = 1, diamonds, spades, clubs };
+  struct Rank {
+    explicit Rank(int);
+    inline explicit operator int() const noexcept { return value; }
+   private:
+    int value;
+  };
   struct Card {
     int rank;
     Suit suit;

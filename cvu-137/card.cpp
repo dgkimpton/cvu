@@ -1,6 +1,12 @@
 #include "card.h"
 #include <stdexcept>
 namespace PlayingCards {
+  Rank::Rank(int val) : value{val} {
+    if (val < 1 || val > 13) {
+      throw std::out_of_range("rank range is [1, 13], got: " + std::to_string(val));
+    }
+  }
+
   Card parse(std::string const &) {
     return Card{1, Suit::hearts};
   }

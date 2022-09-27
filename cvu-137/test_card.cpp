@@ -26,3 +26,13 @@ TEST_CASE("the numeric values of suits should be sequential from one") {
   CHECK(static_cast<int>(Suit::spades) == 3);
   CHECK(static_cast<int>(Suit::clubs) == 4);
 }
+
+TEST_CASE("ranks should always be in the range [1, 13]") {
+  CHECK(static_cast<int>(Rank{1}) == 1);
+  CHECK(static_cast<int>(Rank{5}) == 5);
+  CHECK(static_cast<int>(Rank{13}) == 13);
+
+  CHECK_THROWS_AS(Rank{0}, std::out_of_range);
+  CHECK_THROWS_AS(Rank{14}, std::out_of_range);
+  CHECK_THROWS_AS(Rank{-1}, std::out_of_range);
+}
