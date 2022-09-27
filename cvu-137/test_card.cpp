@@ -4,7 +4,7 @@
 using namespace PlayingCards;
 
 TEST_CASE("it should be possible to parse english language descriptions of playing cards") {
-  CHECK(parse("ace of hearts") == Card{1, Suit::hearts});
+  CHECK(parse("ace of hearts") == Card{Rank{1}, Suit::hearts});
 }
 
 TEST_CASE("it should be possible to parse a suit from a string") {
@@ -35,4 +35,5 @@ TEST_CASE("ranks should always be in the range [1, 13]") {
   CHECK_THROWS_AS(Rank{0}, std::out_of_range);
   CHECK_THROWS_AS(Rank{14}, std::out_of_range);
   CHECK_THROWS_AS(Rank{-1}, std::out_of_range);
+  CHECK_THROWS_WITH(Rank{-1}, Catch::Contains("rank range"));
 }

@@ -7,11 +7,12 @@ namespace PlayingCards {
   struct Rank {
     explicit Rank(int);
     inline explicit operator int() const noexcept { return value; }
+    auto operator<=> (Rank const &) const = default;
    private:
     int value;
   };
   struct Card {
-    int rank;
+    Rank rank;
     Suit suit;
     auto operator<=> (Card const &) const = default;
   };

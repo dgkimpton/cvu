@@ -8,7 +8,7 @@ namespace PlayingCards {
   }
 
   Card parse(std::string const &) {
-    return Card{1, Suit::hearts};
+    return Card{Rank{1}, Suit::hearts};
   }
 
   Suit parse_suit(const std::string &str) {
