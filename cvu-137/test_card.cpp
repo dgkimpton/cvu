@@ -37,3 +37,30 @@ TEST_CASE("ranks should always be in the range [1, 13]") {
   CHECK_THROWS_AS(Rank{-1}, std::out_of_range);
   CHECK_THROWS_WITH(Rank{-1}, Catch::Contains("rank range"));
 }
+
+TEST_CASE("it should be possible to parse a rank from a string") {
+  CHECK(parse_rank("ace") == Rank{1});
+  CHECK(parse_rank("2") == Rank{2});
+  CHECK(parse_rank("10") == Rank{10});
+  CHECK(parse_rank("jack") == Rank{11});
+  CHECK(parse_rank("queen") == Rank{12});
+  CHECK(parse_rank("king") == Rank{13});
+
+  CHECK_THROWS_AS(parse_rank(""), std::invalid_argument);
+  CHECK_THROWS_WITH(parse_rank(""), Catch::Contains("invalid rank"));
+
+  CHECK_THROWS_AS(parse_rank("other"), std::invalid_argument);
+  CHECK_THROWS_WITH(parse_rank("other"), Catch::Contains("invalid rank"));
+  CHECK_THROWS_WITH(parse_rank("other"), Catch::Contains("other"));
+
+  CHECK_THROWS_AS(parse_rank("0"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("-1"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("14"), std::invalid_argument);
+}
+
+TEST_CASE("it should not be possible to parse face cards by value") {
+  CHECK_THROWS_AS(parse_rank("1"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("11"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("12"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("13"), std::invalid_argument);
+}

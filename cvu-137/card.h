@@ -18,4 +18,5 @@ namespace PlayingCards {
   };
   Card parse(std::string const &);
   Suit parse_suit(std::string const &);
+  Rank parse_rank(std::string const &);
 }
