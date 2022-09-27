@@ -11,7 +11,16 @@ namespace PlayingCards {
   Card parse(std::string const &str) {
     std::istringstream iss{str};
     std::string rank, of, suit;
-    iss >> rank >> of >> suit;
+
+    if (!(iss >> rank >> of >> suit))
+      throw std::invalid_argument("too little input: " + str);
+
+    if (!iss.eof())
+      throw std::invalid_argument("too much input: " + str);
+
+    if (of != "of")
+      throw std::invalid_argument("expected 'of', found: " + of);
+
     return Card{parse_rank(rank), parse_suit(suit)};
   }
 
