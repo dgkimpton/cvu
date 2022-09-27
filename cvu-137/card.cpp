@@ -1,5 +1,6 @@
 #include "card.h"
 #include <stdexcept>
+#include <sstream>
 namespace PlayingCards {
   Rank::Rank(int val) : value{val} {
     if (val < 1 || val > 13) {
@@ -7,8 +8,11 @@ namespace PlayingCards {
     }
   }
 
-  Card parse(std::string const &) {
-    return Card{Rank{1}, Suit::hearts};
+  Card parse(std::string const &str) {
+    std::istringstream iss{str};
+    std::string rank, of, suit;
+    iss >> rank >> of >> suit;
+    return Card{parse_rank(rank), parse_suit(suit)};
   }
 
   Suit parse_suit(const std::string &str) {

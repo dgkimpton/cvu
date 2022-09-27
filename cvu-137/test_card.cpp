@@ -5,6 +5,7 @@ using namespace PlayingCards;
 
 TEST_CASE("it should be possible to parse english language descriptions of playing cards") {
   CHECK(parse("ace of hearts") == Card{Rank{1}, Suit::hearts});
+  CHECK(parse("2 of diamonds") == Card{Rank{2}, Suit::diamonds});
 }
 
 TEST_CASE("it should be possible to parse a suit from a string") {
