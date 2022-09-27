@@ -14,6 +14,7 @@ namespace PlayingCards {
   std::ostream & operator<< (std::ostream &os, Suit const &suit) {
     switch (suit) {
       case Suit::hearts: os << "hearts"; break;
+      case Suit::diamonds: os << "diamonds"; break;
     }
     return os;
   }
