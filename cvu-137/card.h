@@ -3,7 +3,7 @@
 #include <compare>
 
 namespace PlayingCards {
-  enum class Suit { hearts, diamonds };
+  enum class Suit { hearts = 1, diamonds, spades, clubs };
   struct Card {
     int rank;
     Suit suit;

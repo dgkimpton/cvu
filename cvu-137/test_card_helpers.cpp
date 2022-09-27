@@ -9,4 +9,6 @@ TEST_CASE("it should be possible to convert a Card to a string") {
 TEST_CASE("it should be possible to convert a Suit to a string") {
   CHECK(stream_extract_string(Suit::hearts) == "hearts");
   CHECK(stream_extract_string(Suit::diamonds) == "diamonds");
+  CHECK(stream_extract_string(Suit::spades) == "spades");
+  CHECK(stream_extract_string(Suit::clubs) == "clubs");
 }

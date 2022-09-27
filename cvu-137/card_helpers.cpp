@@ -15,6 +15,8 @@ namespace PlayingCards {
     switch (suit) {
       case Suit::hearts: os << "hearts"; break;
       case Suit::diamonds: os << "diamonds"; break;
+      case Suit::spades: os << "spades"; break;
+      case Suit::clubs: os << "clubs"; break;
     }
     return os;
   }

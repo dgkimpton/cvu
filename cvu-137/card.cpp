@@ -8,6 +8,8 @@ namespace PlayingCards {
   Suit parse_suit(const std::string &str) {
     if (str == "hearts") return Suit::hearts;
     if (str == "diamonds") return Suit::diamonds;
+    if (str == "spades") return Suit::spades;
+    if (str == "clubs") return Suit::clubs;
     throw std::invalid_argument("not a suit: " + str);
   }
 }
