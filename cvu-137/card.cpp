@@ -13,13 +13,13 @@ namespace PlayingCards {
     std::string rank, of, suit;
 
     if (!(iss >> rank >> of >> suit))
-      throw std::invalid_argument("too little input: " + str);
+      throw ParseError(str, "too little input");
 
     if (!iss.eof())
-      throw std::invalid_argument("too much input: " + str);
+      throw ParseError(str, "too much input");
 
     if (of != "of")
-      throw std::invalid_argument("expected 'of', found: " + of);
+      throw ParseError(str, "expected 'of', found: " + of);
 
     return Card{parse_rank(rank), parse_suit(suit)};
   }
@@ -29,7 +29,7 @@ namespace PlayingCards {
     if (str == "diamonds") return Suit::diamonds;
     if (str == "spades") return Suit::spades;
     if (str == "clubs") return Suit::clubs;
-    throw std::invalid_argument("not a suit: " + str);
+    throw ParseError(str, "not a suit");
   }
 
   Rank parse_rank(const std::string &str) {
@@ -40,12 +40,17 @@ namespace PlayingCards {
 
     try {
       auto value = std::stoi(str);
-      if (value > 1 && value < 11) {
-        return Rank{value};
+      if (value == 1 || (value >= 11 && value <= 13)) {
+        throw std::out_of_range("face cards must be specified by name");
       }
-      throw std::out_of_range("face cards must be specified by name");
+      return Rank{value};
     } catch (const std::logic_error &ex) {
-      throw std::invalid_argument("invalid rank <" + str + "> " + ex.what());
+      throw ParseError(str, std::string{"invalid rank : "} + ex.what());
     }
+  }
+
+  ParseError::ParseError( std::string const &str, std::string const &msg)
+      : std::runtime_error{"couldn't parse <" + str + "> : " + msg}
+  {
   }
 }

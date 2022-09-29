@@ -16,10 +16,10 @@ TEST_CASE("it should be possible to parse a suit from a string") {
   CHECK(parse_suit("spades") == Suit::spades);
   CHECK(parse_suit("clubs") == Suit::clubs);
 
-  CHECK_THROWS_AS(parse_suit(""), std::invalid_argument);
+  CHECK_THROWS_AS(parse_suit(""), ParseError);
   CHECK_THROWS_WITH(parse_suit(""), Catch::Contains("not a suit"));
 
-  CHECK_THROWS_AS(parse_suit("fish"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_suit("fish"), ParseError);
   CHECK_THROWS_WITH(parse_suit("fish"), Catch::Contains("fish"));
 }
 
@@ -49,36 +49,36 @@ TEST_CASE("it should be possible to parse a rank from a string") {
   CHECK(parse_rank("queen") == Rank{12});
   CHECK(parse_rank("king") == Rank{13});
 
-  CHECK_THROWS_AS(parse_rank(""), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank(""), ParseError);
   CHECK_THROWS_WITH(parse_rank(""), Catch::Contains("invalid rank"));
 
-  CHECK_THROWS_AS(parse_rank("other"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("other"), ParseError);
   CHECK_THROWS_WITH(parse_rank("other"), Catch::Contains("invalid rank"));
   CHECK_THROWS_WITH(parse_rank("other"), Catch::Contains("other"));
 
-  CHECK_THROWS_AS(parse_rank("0"), std::invalid_argument);
-  CHECK_THROWS_AS(parse_rank("-1"), std::invalid_argument);
-  CHECK_THROWS_AS(parse_rank("14"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("0"), ParseError);
+  CHECK_THROWS_AS(parse_rank("-1"), ParseError);
+  CHECK_THROWS_AS(parse_rank("14"), ParseError);
 }
 
 TEST_CASE("it should not be possible to parse face cards by value") {
-  CHECK_THROWS_AS(parse_rank("1"), std::invalid_argument);
-  CHECK_THROWS_AS(parse_rank("11"), std::invalid_argument);
-  CHECK_THROWS_AS(parse_rank("12"), std::invalid_argument);
-  CHECK_THROWS_AS(parse_rank("13"), std::invalid_argument);
+  CHECK_THROWS_AS(parse_rank("1"), ParseError);
+  CHECK_THROWS_AS(parse_rank("11"), ParseError);
+  CHECK_THROWS_AS(parse_rank("12"), ParseError);
+  CHECK_THROWS_AS(parse_rank("13"), ParseError);
 }
 
 TEST_CASE("it is impossible to parse a card with less than two tokens") {
-  CHECK_THROWS_AS(parse("4 hearts"), std::invalid_argument);
+  CHECK_THROWS_AS(parse("4 hearts"), ParseError);
   CHECK_THROWS_WITH(parse("5 hearts"), Catch::Contains("too little input"));
 }
 
 TEST_CASE("it is impossible to parse a card with more than three tokens") {
-  CHECK_THROWS_AS(parse("ace of spades baby"), std::invalid_argument);
+  CHECK_THROWS_AS(parse("ace of spades baby"), ParseError);
   CHECK_THROWS_WITH(parse("ace of spades baby"), Catch::Contains("too much input"));
 }
 
 TEST_CASE("the second token must always be 'of'") {
-  CHECK_THROWS_AS(parse("queen from club"), std::invalid_argument);
+  CHECK_THROWS_AS(parse("queen from club"), ParseError);
   CHECK_THROWS_WITH(parse("queen from club"), Catch::Contains("expected 'of'"));
 }
